@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lumid-hooks"
+version = "0.1.0"
+description = "Shared plugin contract surface for Lumid projects"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.12.3",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+lumid_hooks = ["py.typed"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
