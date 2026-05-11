@@ -38,4 +38,4 @@ jobs:
         run: uv build --out-dir dist
 
       - name: Verify distributions
-        run: uv run python scripts/ci/check_package_build.py --dist dist
+        run: uv run scripts/ci/check_package_build.py --dist dist

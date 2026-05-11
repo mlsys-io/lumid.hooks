@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Validate built lumid-hooks distributions."""
 
 import argparse

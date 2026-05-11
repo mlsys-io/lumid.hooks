@@ -39,7 +39,7 @@ matching TestPyPI run before approving production publishing.
    uv sync --group dev --frozen
    uv run pytest -q
    uv build --out-dir dist
-   uv run python scripts/ci/check_package_build.py --dist dist
+   uv run scripts/ci/check_package_build.py --dist dist
    ```
 
 4. Open and merge a release prep PR with the version bump and `uv.lock`.
