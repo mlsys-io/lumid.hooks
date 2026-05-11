@@ -2,7 +2,6 @@
 """Validate built lumid-hooks distributions."""
 
 import argparse
-import os
 import subprocess
 import tempfile
 import venv
@@ -10,8 +9,6 @@ from pathlib import Path
 
 
 def _python_bin(env_dir: Path) -> Path:
-    if os.name == "nt":
-        return env_dir / "Scripts" / "python.exe"
     return env_dir / "bin" / "python"
 
 
@@ -26,16 +23,23 @@ def _wheel(dist_dir: Path) -> Path:
     return wheels[0]
 
 
-def _smoke_install(dist_dir: Path, wheel: Path) -> None:
+def _smoke_install(wheel: Path) -> None:
     """Install the built wheel in a fresh venv and exercise public imports."""
-    code = (
-        "from lumid_hooks import BaseBindings, HookBindings, PrincipalContext, ResourceRef; "
-        "assert isinstance(BaseBindings(), HookBindings); "
-        "p = PrincipalContext(principal_id='p', org_id='o', external_id='e', "
-        "principal_type='user', scopes=[]); "
-        "r = ResourceRef(kind='k'); "
-        "assert p.principal_id == 'p' and r.kind == 'k'"
-    )
+    code = """
+from lumid_hooks import BaseBindings, HookBindings, PrincipalContext, ResourceRef
+
+assert isinstance(BaseBindings(), HookBindings)
+
+p = PrincipalContext(
+    principal_id="p",
+    org_id="o",
+    external_id="e",
+    principal_type="user",
+    scopes=[],
+)
+r = ResourceRef(kind="k")
+assert p.principal_id == "p" and r.kind == "k"
+"""
     with tempfile.TemporaryDirectory(prefix="lumid-hooks-smoke-") as tmp:
         env_dir = Path(tmp) / ".venv"
         venv.EnvBuilder(with_pip=True).create(env_dir)
@@ -46,8 +50,6 @@ def _smoke_install(dist_dir: Path, wheel: Path) -> None:
                 "-m",
                 "pip",
                 "install",
-                "--find-links",
-                dist_dir.as_posix(),
                 wheel.as_posix(),
             ]
         )
@@ -68,7 +70,7 @@ def main() -> int:
     if not dist_dir.is_dir():
         raise SystemExit(f"Distribution directory does not exist: {dist_dir}")
 
-    _smoke_install(dist_dir, _wheel(dist_dir))
+    _smoke_install(_wheel(dist_dir))
     return 0
 
 

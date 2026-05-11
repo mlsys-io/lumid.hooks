@@ -52,6 +52,9 @@ jobs:
       - name: Run tests
         run: uv run pytest -q
 
+      - name: Validate release version
+        run: uv run scripts/ci/check_release_version.py --tag "$RELEASE_TAG"
+
       - name: Build distributions
         run: uv build --out-dir dist
 
