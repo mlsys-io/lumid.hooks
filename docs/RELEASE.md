@@ -49,7 +49,7 @@ matching TestPyPI run before approving production publishing.
 After the release prep PR lands, create and push a signed or annotated tag:
 
 ```bash
-git tag -a v0.1.0 -m "v0.1.0"
+git tag -a v0.1.0 -m "chore: release v0.1.0"
 git push origin v0.1.0
 ```
 
