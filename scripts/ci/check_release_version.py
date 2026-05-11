@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Validate that a release tag matches the package version."""
 
 import argparse
