@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,10 +7,16 @@ name = "lumid-hooks"
 version = "0.1.0"
 description = "Shared plugin contract surface for Lumid projects"
 readme = "README.md"
-license = { file = "LICENSE" }
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "pydantic>=2.12.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
 ]
 
 [tool.setuptools]
@@ -21,3 +27,6 @@ lumid_hooks = ["py.typed"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
