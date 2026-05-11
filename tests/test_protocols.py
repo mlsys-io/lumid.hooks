@@ -12,7 +12,6 @@ from examples.simple_plugin.permissions import SimplePermissionChecker
 from examples.simple_plugin.registrar import SimpleResourceRegistrar
 from examples.simple_plugin.submission import SimpleSubmissionGuard
 from examples.simple_plugin.usage import SimpleUsageSink
-
 from lumid_hooks import (
     BaseBindings,
     HookBindings,
