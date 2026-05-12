@@ -5,7 +5,6 @@ import re
 import tomllib
 from pathlib import Path
 
-
 _TAG_RE = re.compile(r"^v(?P<version>[0-9]+\.[0-9]+\.[0-9]+(?:[A-Za-z0-9.!+_-]*)?)$")
 
 

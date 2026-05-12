@@ -16,7 +16,13 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "black>=25.12.0",
+    "codespell>=2.4.1",
+    "isort>=7.0.0",
+    "mypy>=1.19.1",
+    "pre-commit>=4.5.1",
     "pytest>=8.4.2",
+    "ruff>=0.14.10",
 ]
 
 [tool.setuptools]
@@ -30,3 +36,30 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+target-version = ["py312"]
+
+[tool.ruff]
+target-version = "py312"
+lint.select = ["E", "F", "UP", "I"]
+lint.ignore = ["I001"]
+extend-exclude = ["__init__.pyi"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src", "tests"]
+ignore_missing_imports = false
+warn_unused_configs = true
+
+[tool.codespell]
+skip = "*.lock"
+
+[tool.bandit]
+skips = [
+    "B101",  # assert: internal invariants, not shipped with -O
+    "B404",  # subprocess module import: actual unsafe patterns caught by B602/B603/B607
+]

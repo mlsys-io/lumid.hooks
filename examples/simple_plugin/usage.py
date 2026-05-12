@@ -8,15 +8,13 @@ matching their host's emitted row shape.
 import logging
 from collections.abc import Sequence
 
-from .state import DemoUsageRow, USAGE_LEDGER
+from .state import USAGE_LEDGER, DemoUsageRow
 
 
 class SimpleUsageSink:
     name = "simple_plugin.usage"
 
-    async def emit(
-        self, rows: Sequence[DemoUsageRow], logger: logging.Logger
-    ) -> None:
+    async def emit(self, rows: Sequence[DemoUsageRow], logger: logging.Logger) -> None:
         USAGE_LEDGER.extend(rows)
         logger.info(
             "%s: appended %d row(s); ledger size=%d",

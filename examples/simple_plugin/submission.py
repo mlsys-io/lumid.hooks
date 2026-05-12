@@ -26,6 +26,8 @@ class SimpleSubmissionGuard:
 
     async def check(self, principal: PrincipalContext, logger: logging.Logger) -> None:
         if principal.principal_id in state.BLOCKED_PRINCIPALS:
-            logger.warning("%s: blocked principal_id=%s", self.name, principal.principal_id)
+            logger.warning(
+                "%s: blocked principal_id=%s", self.name, principal.principal_id
+            )
             raise _BlockedError(f"principal {principal.principal_id} is blocked")
         logger.info("%s: allowed principal_id=%s", self.name, principal.principal_id)
